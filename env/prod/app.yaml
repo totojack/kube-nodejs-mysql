@@ -1,0 +1,3 @@
+mysqlUser: myusr
+mysqlDatabase: mydb
+mysqlHost: db-mysql

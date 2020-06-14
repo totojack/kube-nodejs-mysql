@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  type: NodePort
+  ports:
+    - port: 3306
+      targetPort: 3306
+      nodePort: 31306 # exposed port we can communicate to
+  selector:
+    app: mysql
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: lucaiovio/node-db:latest
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: supersecret
+            - name: MYSQL_USER
+              value: myusr
+            - name: MYSQL_PASSWORD
+              value: mypwd
+          ports:
+            - containerPort: 3306
+              name: mysql

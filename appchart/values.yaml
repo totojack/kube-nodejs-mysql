@@ -1,0 +1,2 @@
+# Default values
+image: node-web-app:1.0.0

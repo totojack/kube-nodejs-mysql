@@ -1,0 +1,10 @@
+service:
+  type: NodePort
+mysqlUser: myusr
+mysqlDatabase: mydb
+existingSecret: db-passwords
+initializationFiles:
+  create-table.sql: |-
+    CREATE TABLE response (the_text varchar(255));
+  insert-data.sql: |-
+    INSERT INTO response (the_text) VALUES ('Hello World');
